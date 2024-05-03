@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .h {
+        color: #333;
+    }
+    
+    .y {
+        color: #007bff;
+    }
+    
+    .l {
+        color: #ff7f0e;
+    }
+    
+    form {
+        width: 60%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    form input[type="text"],
+    form input[type="password"] {
+        width: calc(100% - 22px); /* Adjusting for padding */
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    form input[type="submit"] {
+        width: 100%;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    
+    form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    
+    a {
+        display: block;
+        margin-top: 10px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: #0056b3;
+    }
+    
+    small {
+        color: #dc3545;
+    }
+    
+ </style>
+</head>
+<body>
+    <h1 class="h" style=text-align:center>Profile</h1>
+    <h1 class="y" style=text-align:center>Welcome {{ name }}</h1>
+    
+    {% if users is not None and request.user.is_superuser %}
+        <h3 class="l" style=text-align:center>List OF User</h3>
+        {% for user in users %}
+            <a  style=text-align:center href="{% url 'userdetail' user.id %}">{{ user.username }} </a><br>
+        {% endfor %}
+    {% endif %}
+    
+    {% if messages %}
+        {% for message in messages %}
+            <small {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }}
+            </small>
+        {% endfor %}
+    {% endif %}
+    
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+        
+        {% for fm in form %}
+            {{ fm.label_tag }} {{ fm }} {{ fm.error|striptags }} <br><br>
+        {% endfor %}
+        
+        <input type="submit" value="submit">
+        <a href="{% url 'changepass' %}">Change Password</a>
+    <a href="{% url 'passchange' %}">Pass Change</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    </form> 
+
+    
+    
+</body>
+</html>

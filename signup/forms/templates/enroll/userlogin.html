@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding:13%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        
+        form {
+            width: 300px;
+            margin: 0 auto; /* Center horizontally */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        form input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        form a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        form a:hover {
+            color: #0056b3;
+        }
+        .hpy {
+           
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hpt {
+            
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .h {
+            text-align:center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    
+    <form action="" method="post">
+        <h1 class="h">Log In</h1>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors  %}
+            <p>{{error}}</p>
+            {% endfor %}
+        {% endif %}
+        {% for fm in form  %}
+    {{fm.label_tag}} {{fm}} {{fm.error|striptags}} <br><br>
+    {% endfor %}
+        <input type="submit" value="login">
+        <a class="hpy" href="{% url 'signup' %}">Signup</a>
+        <a class="hpt" href="{% url 'home' %}">Home</a>
+    </form>
+</body>
+</html>

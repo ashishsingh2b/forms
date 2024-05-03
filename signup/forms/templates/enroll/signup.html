@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* light blue */
+            font-family: Arial, sans-serif;
+        }
+        
+        .success {
+            color: red;
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        form input[type="submit"] {
+            margin-left:20%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form p {
+            color: red;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .hpy {
+            margin-left:10%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hpt {
+            
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+            {% for error in form.non_field_errors  %}
+            <p>{{error}}</p>
+            {% endfor %}
+    {% endif %}
+    {% for fm in form  %}
+    {{fm.label_tag}} {{fm}} {{fm.error|striptags}} <br><br>
+    {% endfor %}
+   
+    <input type="submit" value="Submit">
+    <a class="hpy" href="{% url 'login' %}">Login</a>
+    <a class="hpt"href="{% url 'home' %}">Home</a>
+</form>
+{% if messages %}
+ {% for message in messages  %}
+    <small{% if message.tags %} class="{{message.tags}}" {% endif %} >{{message}}</small>
+ {% endfor %}
+{% endif %}
+
+</body>
+</html>
